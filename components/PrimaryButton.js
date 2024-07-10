@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-function PrimaryButton(children) {
+function PrimaryButton({children}) {
   return (
     <View>
       <Text>{children}</Text>
