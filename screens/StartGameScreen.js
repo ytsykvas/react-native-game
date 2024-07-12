@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TextInput, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 
-function StartGameScreen() {
+function StartGameScreen({ onPickNumber }) {
   const [enteredNumber, setEnteredNumber] = useState('');
 
   function numberInputHandler(enteredText) {
@@ -20,12 +20,12 @@ function StartGameScreen() {
       Alert.alert(
         'Invalid number!',
         'Number should be between 1 and 99',
-        [{text: 'OK', style: 'destructive', onPress: resetInputHandler}]
+        [{ text: 'OK', style: 'destructive', onPress: resetInputHandler }]
       );
       return;
     }
 
-    console.log('Valid number!');r
+    onPickNumber(chosenNumber);
   }
 
   return (
@@ -34,10 +34,8 @@ function StartGameScreen() {
         style={styles.numberInput}
         maxLength={2}
         keyboardType="number-pad"
-        onChange={numberInputHandler}
+        onChangeText={numberInputHandler}
         value={enteredNumber}
-        // autoCapitalize="none" // works with none numeric symbols. Disabling capitalize. Do not needed in this case.
-        autoCorrect={false} // works with none numeric symbols. Disabling autocorrection. Do not needed in this case.
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
@@ -62,9 +60,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     elevation: 50, // shadow. Works only with Android
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2}, // shadow offset for IOS
-    shadowRadius: 6, //  shadow radius for IOS
-    shadowOpacity: '0,25' // shadow opacity for IOS
+    shadowOffset: { width: 0, height: 2 }, // shadow offset for IOS
+    shadowRadius: 6, // shadow radius for IOS
+    shadowOpacity: 0.25 // shadow opacity for IOS
   },
   numberInput: {
     height: 60,
